@@ -1,0 +1,1 @@
+dotnet test SeleniumMyStoreWebAppTest.csproj --filter TestCategory=smoke --% -- TestRunParameters.Parameter(name=\"browserName\", value=\"chrome\")
