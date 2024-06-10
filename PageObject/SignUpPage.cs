@@ -92,9 +92,10 @@ public class SignUpPage(IWebDriver driver) : BasePageObject(driver)
         ReceiveNewsletterCheckbox.Click();
     }
 
-    public void ClickSubmitFormButton()
+    public HomePage ClickSubmitFormButton()
     {
         SubmitFormButton.Click();
+        return new HomePage(_driver);
     }
     public bool IsSignedOut() => IsElementDisplayed(LogInInsteadLink);
     public bool IsEmailUniqe() => !IsElementDisplayed(EmailAddressUsedAlertText);

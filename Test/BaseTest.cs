@@ -11,6 +11,7 @@ namespace SeleniumMyStoreWebAppTest;
 public class BaseTest
 {
 
+    protected static Guid Guid => Guid.NewGuid();
     protected IWebDriver _driver;
     protected ExtentTest _testCaseLogEntry;
 

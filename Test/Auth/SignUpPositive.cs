@@ -23,13 +23,12 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signUpPage.SetGenderFemale();
             _signUpPage.EnterFirstName("TestUserFirstName");
             _signUpPage.EnterLastName("TestUserLastName");
-            _signUpPage.EnterEmail(authCredential.Emailaddress);
+            var uniqueEmail = Guid + authCredential.Emailaddress;
+            _signUpPage.EnterEmail(uniqueEmail);
             _signUpPage.EnterPassword(authCredential.Password);
             _signUpPage.ClickAcceptTermsAndPolicyCheckbox();
-            _signUpPage.ClickSubmitFormButton();
-
-            Assert.That(!_signUpPage.IsEmailUniqe(), $"Email address {authCredential.Emailaddress} already registrated!");
-            Assert.That(!_signUpPage.IsSignedOut(), "Expected postcondition User is signed in!");
+            var homePage = _signUpPage.ClickSubmitFormButton();
+            Assert.That(homePage.IsSignedIn(), "Expected postcondition User is signed in!");
         }
 
 
@@ -44,8 +43,8 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signUpPage.EnterUniqueEmail();
             _signUpPage.EnterPassword(TestDataConstants.StrongPassword);
             _signUpPage.ClickAcceptTermsAndPolicyCheckbox();
-            _signUpPage.ClickSubmitFormButton();
-            Assert.That(!_signUpPage.IsSignedOut(), "Expected postcondition User is signed in!");
+            var homePage = _signUpPage.ClickSubmitFormButton();
+            Assert.That(homePage.IsSignedIn(), "Expected postcondition User is signed in!");
         }
         [Test]
         [Category("smoke")]
@@ -60,9 +59,8 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signUpPage.ClickAcceptTermsAndPolicyCheckbox();
             _signUpPage.ClickReceiveNewsletterCheckbox();
             _signUpPage.ClickReceiveOffersCheckbox();
-            _signUpPage.ClickSubmitFormButton();
-            Assert.That(!_signUpPage.IsSignedOut(), "Expected postcondition User is signed in!");
-            var valami = GetRFCComplaintEmailAdressesWithPassword();
+            var homePage = _signUpPage.ClickSubmitFormButton();
+            Assert.That(homePage.IsSignedIn(), "Expected postcondition User is signed in!");
         }
 
 
