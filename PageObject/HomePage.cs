@@ -1,74 +1,70 @@
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
+
 
 namespace SeleniumMyStoreWebAppTest.PageObject
 {
     public class HomePage(IWebDriver driver) : BasePageObject(driver)
     {
-        private IWebElement FirstProduct => _driver.FindElement(By.XPath("//section[@id='content']/section/div/div/article/div/div/div/a/i"));
-        private IWebElement SecondProduct => _driver.FindElement(By.XPath("//section[@id='content']/section[2]/div/div/article/div/div/div/a/i"));
 
-        private IWebElement AddtoCartButton => _driver.FindElement(By.CssSelector(".add-to-cart.btn.btn-primary"));
+        private const string _pageUrl = "https://teststore.automationtesting.co.uk";
 
-        private IWebElement ContinueShoppingButton => _driver.FindElement(By.CssSelector(".cart-content-btn [data-dismiss]"));
+        #region Selector Queries
+        private By _firstProductQ = By.XPath("//section[@id='content']/section/div/div/article/div/div/div/a/i");
+        private By _secondProductQ = By.XPath("//section[@id='content']/section[2]/div/div/article/div/div/div/a/i");
+        private By _addtoCartButtonQ = By.CssSelector(".add-to-cart.btn.btn-primary");
+        private By _continueShoppingButtonQ = By.CssSelector(".cart-content-btn [data-dismiss]");
+        private By _popularProductsListQ = By.CssSelector(".products.row > div");
+        private By _onSaleProductsListQ = By.XPath("//section[@id='content']/section[2]/div/div");
+        private By _newProductsListQ = By.XPath("//section[@id='content']/section[3]/div/div");
 
-        private IList<IWebElement> PopularProductsList => _driver.FindElements(By.CssSelector(".products.row > div"));
+        private IWebElement _firstProduct => _driver.FindElement(_firstProductQ);
+        private IWebElement _secondProduct => _driver.FindElement(_secondProductQ);
+        private IWebElement _addtoCartButton => _driver.FindElement(_addtoCartButtonQ);
+        private IWebElement _continueShoppingButton => _driver.FindElement(_continueShoppingButtonQ);
+        private IList<IWebElement> _popularProductsList => _driver.FindElements(_popularProductsListQ);
+        private IList<IWebElement> _onSaleProductsList => _driver.FindElements(_onSaleProductsListQ);
+        private IList<IWebElement> _newProductsList => _driver.FindElements(_newProductsListQ);
+        #endregion
 
-        private IList<IWebElement> OnSaleProductsList => _driver.FindElements(By.XPath("//section[@id='content']/section[2]/div/div"));
-
-        private IList<IWebElement> NewProductsList => _driver.FindElements(By.XPath("//section[@id='content']/section[3]/div/div"));
-
-        public void GoToHomePage() => _driver.Navigate().GoToUrl("https://teststore.automationtesting.co.uk");
+        public void GoToHomePage() => _driver.Navigate().GoToUrl(_pageUrl);
 
         public IList<IWebElement> GetPopularProductsList()
         {
-            return PopularProductsList;
+            return _popularProductsList;
         }
         public void ClickFirstProduct()
         {
-            FirstProduct.Click();
+            _firstProduct.Click();
         }
 
         public void ClickSubmitButton()
         {
-            AddtoCartButton.Click();
+            _addtoCartButton.Click();
         }
 
         public void ClickContinueShoppingButton()
         {
-            ContinueShoppingButton.Click();
+            _continueShoppingButton.Click();
         }
 
         public void ClickSecondProduct()
         {
-            SecondProduct.Click();
+            _secondProduct.Click();
         }
 
-//TODO: Refactor to use composition or inner class for modal objects
-//TODO: Add methods to the BasePageObject to handle scrolling
+        //TODO: Refactor to use composition or inner class for modal objects
         public void AddProductToCartWithQuickViewModal(IWebElement productCard)
         {
-            HoverMouseOverProductCard(productCard);
+            ScrollAndHoverMouseOverWebElement(productCard);
             var quickViewTextButton = productCard.FindElement(By.CssSelector(".js-quick-view.quick-view"));
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(8));
-            wait.Until(ExpectedConditions.ElementToBeClickable(quickViewTextButton));
+            WaitUntilElementIsClickAble(quickViewTextButton);
             quickViewTextButton.Click();
-            wait.Until(ExpectedConditions.ElementToBeClickable(AddtoCartButton));
-            AddtoCartButton.Click();
-            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#blockcart-modal")));
-            IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)_driver;
-            jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true);", ContinueShoppingButton);
-            ContinueShoppingButton.Click();
+            WaitUntilElementIsClickAble(_addtoCartButton);
+            _addtoCartButton.Click();
+            WaitUntilElementIsVisible(By.CssSelector("#blockcart-modal"));
+            ScrollToWebElement(productCard);
+            _continueShoppingButton.Click();
         }
 
-        private void HoverMouseOverProductCard(IWebElement productCard)
-        {
-            var action = new Actions(_driver);
-            IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)_driver;
-            jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true);", productCard);
-            action.MoveToElement(productCard).Perform();
-        }
     }
 }
