@@ -33,9 +33,10 @@ public class SignInPage(IWebDriver driver) : BasePageObject(driver)
         _passwordField.SendKeys(password);
     }
 
-    public void ClickSignInButton()
+    public HomePage ClickSignInButton()
     {
         _signInButton.Click();
+        return new HomePage(_driver);
     }
 
     public void ClickShowPasswordButton()

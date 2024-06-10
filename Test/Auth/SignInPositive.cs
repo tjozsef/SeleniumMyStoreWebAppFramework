@@ -24,8 +24,8 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signInPage.EnterEmail(credential.Emailaddress);
             _signInPage.EnterPassword(credential.Password);
             _signInPage.ClickShowPasswordButton();
-            _signInPage.ClickSignInButton();
-            Assert.That(!_signInPage.IsSignedOut(), "User is not signed in!");
+            var homePage = _signInPage.ClickSignInButton();
+            Assert.That(homePage.IsSignedIn(), "User is not signed in!");
         }
 
         private static IEnumerable<AuthCredential> GetValidSignInCredentials()

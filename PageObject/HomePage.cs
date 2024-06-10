@@ -9,6 +9,8 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         private const string _homePageUrl = "https://teststore.automationtesting.co.uk";
 
         #region Selector Queries
+
+        private By _signOutButtonQ = By.CssSelector(".logout");
         private By _firstProductQ = By.XPath("//section[@id='content']/section/div/div/article/div/div/div/a/i");
         private By _secondProductQ = By.XPath("//section[@id='content']/section[2]/div/div/article/div/div/div/a/i");
         private By _addtoCartButtonQ = By.CssSelector(".add-to-cart.btn.btn-primary");
@@ -17,6 +19,7 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         private By _onSaleProductsListQ = By.XPath("//section[@id='content']/section[2]/div/div");
         private By _newProductsListQ = By.XPath("//section[@id='content']/section[3]/div/div");
 
+        private IWebElement _signOutButton => _driver.FindElement(_signOutButtonQ);
         private IWebElement _firstProduct => _driver.FindElement(_firstProductQ);
         private IWebElement _secondProduct => _driver.FindElement(_secondProductQ);
         private IWebElement _addtoCartButton => _driver.FindElement(_addtoCartButtonQ);
@@ -64,6 +67,11 @@ namespace SeleniumMyStoreWebAppTest.PageObject
             WaitUntilElementIsVisible(By.CssSelector("#blockcart-modal"));
             ScrollToWebElement(productCard);
             _continueShoppingButton.Click();
+        }
+
+        public bool IsSignedIn()
+        {
+            return IsElementDisplayed(_signOutButtonQ);
         }
 
     }
