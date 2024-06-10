@@ -31,4 +31,7 @@
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
     <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
   </Target>
+    <Target Name="CopyTestCaseData" AfterTargets="AfterBuild">
+    <Copy SourceFiles="TestCaseData\RFCCompliantValidEmailAdressesSample.json" DestinationFiles="$(OutDir)\TestCaseData\RFCCompliantValidEmailAdressesSample.json" />
+  </Target>
 </Project>

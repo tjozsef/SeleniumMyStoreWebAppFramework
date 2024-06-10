@@ -3,7 +3,7 @@ using SeleniumMyStoreWebAppTest.PageObject;
 using SeleniumMyStoreWebAppTest.Util;
 namespace SeleniumMyStoreWebAppTest.Auth
 {
-     [TestFixture]
+    [TestFixture]
     public class SignUpPositive : BaseTest
     {
         private SignUpPage _signUpPage;
@@ -15,8 +15,6 @@ namespace SeleniumMyStoreWebAppTest.Auth
         }
 
 
-        //TODO:FIX test invisible for test explorer
-        [Test]
         [TestCaseSource(nameof(GetRFCComplaintEmailAdressesWithPassword))]
         public void SignUpRFCEmailAddress(AuthCredential authCredential)
         {
@@ -69,13 +67,10 @@ namespace SeleniumMyStoreWebAppTest.Auth
 
 
 
-        private static IEnumerable<AuthCredential> GetRFCComplaintEmailAdressesWithPassword(){
-
+        private static IEnumerable<AuthCredential>? GetRFCComplaintEmailAdressesWithPassword()
+        {
             var authCredentialList = TestCaseDataReader.ReadJsonDataListForTestCases<AuthCredential>("RFCCompliantValidEmailAdressesSample.json");
-            foreach(var authCredential in authCredentialList){
-                yield return authCredential;
-            }
-            
+            return authCredentialList;
         }
     }
 }
