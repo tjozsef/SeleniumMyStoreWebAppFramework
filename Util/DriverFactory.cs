@@ -7,12 +7,7 @@ using System.Configuration;
 namespace SeleniumMyStoreWebAppTest.Util;
 
 
-enum BrowserType
-{
-    CHROME,
-    FIREFOX,
-    EDGE,
-}
+
 public static class DriverFactory
 {
 
