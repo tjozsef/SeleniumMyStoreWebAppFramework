@@ -39,10 +39,10 @@ namespace SeleniumMyStoreWebAppTest.Auth
         {
             Assert.That(_signUpPage.IsSignedOut, "Expected precondition User is signed out!");
             _signUpPage.SetGenderFemale();
-            _signUpPage.EnterFirstName("TestUserFirstName");
-            _signUpPage.EnterLastName("TestUserLastName");
+            _signUpPage.EnterFirstName(TestDataConstants.TestUserFirstName);
+            _signUpPage.EnterLastName(TestDataConstants.TestUserLastName);
             _signUpPage.EnterUniqueEmail();
-            _signUpPage.EnterPassword("ThisIsAStrongPassword123");
+            _signUpPage.EnterPassword(TestDataConstants.StrongPassword);
             _signUpPage.ClickAcceptTermsAndPolicyCheckbox();
             _signUpPage.ClickSubmitFormButton();
             Assert.That(!_signUpPage.IsSignedOut(), "Expected postcondition User is signed in!");
@@ -53,10 +53,10 @@ namespace SeleniumMyStoreWebAppTest.Auth
         {
             Assert.That(_signUpPage.IsSignedOut, "User is already signed in!");
             _signUpPage.SetGenderMale();
-            _signUpPage.EnterFirstName("TestUserFirstName");
-            _signUpPage.EnterLastName("TestUserLastName");
+            _signUpPage.EnterFirstName(TestDataConstants.TestUserFirstName);
+            _signUpPage.EnterLastName(TestDataConstants.TestUserLastName);
             _signUpPage.EnterUniqueEmail();
-            _signUpPage.EnterPassword("ThisIsAStrongPassword123");
+            _signUpPage.EnterPassword(TestDataConstants.StrongPassword);
             _signUpPage.ClickAcceptTermsAndPolicyCheckbox();
             _signUpPage.ClickReceiveNewsletterCheckbox();
             _signUpPage.ClickReceiveOffersCheckbox();
@@ -69,8 +69,8 @@ namespace SeleniumMyStoreWebAppTest.Auth
 
         private static IEnumerable<AuthCredential>? GetRFCComplaintEmailAdressesWithPassword()
         {
-            var authCredentialList = TestCaseDataReader.ReadJsonDataListForTestCases<AuthCredential>("RFCCompliantValidEmailAdressesSample.json");
-            return authCredentialList;
+            var authCredentialList = TestCaseDataReader.ReadJsonDataListForTestCases<AuthCredential>(TestDataConstants.RFCValidEmailAdressesFileName);
+            return authCredentialList?.AsEnumerable();
         }
     }
 }

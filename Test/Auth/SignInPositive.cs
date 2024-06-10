@@ -30,18 +30,19 @@ namespace SeleniumMyStoreWebAppTest.Auth
 
         private static IEnumerable<AuthCredential> GetValidSignInCredentials()
         {
-            yield return new AuthCredential()
+            var authCredentialList = new List<AuthCredential> {
+             new()
             {
                 Emailaddress = "testusermail@test.com",
                 Password = "ThisIsAStrongPassword123",
-            };
-
-            yield return new AuthCredential()
+            },
+             new()
             {
                 Emailaddress = "testadmin@test.com",
                 Password = "ThisIsAStrongPassword123",
-            };
+            }
+        };
+            return authCredentialList.AsEnumerable();
         }
-
     }
 }

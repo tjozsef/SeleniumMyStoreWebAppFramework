@@ -52,10 +52,5 @@ public class BaseTest
     {
     }
 
-    protected  static IList<T> GetTestCaseData<T>(string jsonFileName)
-    {
-        var testCaseDataList = TestCaseDataReader.ReadJsonDataListForTestCases<T>(jsonFileName);
-        return testCaseDataList;
-    }
 
 }
