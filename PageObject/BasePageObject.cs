@@ -10,6 +10,11 @@ public abstract class BasePageObject(IWebDriver driver)
 {
     protected IWebDriver _driver = driver;
     private IJavaScriptExecutor _jsExecutor => (IJavaScriptExecutor)_driver;
+
+    protected void GoToUrl(string url)
+    {
+        _driver.Navigate().GoToUrl(url);
+    }
     protected bool IsElementDisplayed(By locator)
     {
         try

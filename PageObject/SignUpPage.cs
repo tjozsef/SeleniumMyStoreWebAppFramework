@@ -4,10 +4,13 @@ using OpenQA.Selenium;
 namespace SeleniumMyStoreWebAppTest.PageObject;
 public class SignUpPage(IWebDriver driver) : BasePageObject(driver)
 {
-    private IWebElement GenderMaleRadioButton => _driver.FindElement(By.Id("field-id_gender-1"));
-    private IWebElement GenderFemaleRadioButton => _driver.FindElement(By.Id("field-id_gender-2"));
-    private IWebElement FirstNameField => _driver.FindElement(By.Id("field-firstname"));
-    private IWebElement LastNameField => _driver.FindElement(By.Id("field-lastname"));
+
+    private const string _signUpPageUrl = "https://teststore.automationtesting.co.uk/index.php?controller=registration";
+    #region Selector Queries
+    private IWebElement _genderMaleRadioButton => _driver.FindElement(By.Id("field-id_gender-1"));
+    private IWebElement _genderFemaleRadioButton => _driver.FindElement(By.Id("field-id_gender-2"));
+    private IWebElement _firstNameField => _driver.FindElement(By.Id("field-firstname"));
+    private IWebElement _lastNameField => _driver.FindElement(By.Id("field-lastname"));
     private IWebElement EmailField => _driver.FindElement(By.Id("field-email"));
     private IWebElement PasswordField => _driver.FindElement(By.Id("field-password"));
     private IWebElement BirthdayField => _driver.FindElement(By.Id("field-birthday"));
@@ -18,33 +21,31 @@ public class SignUpPage(IWebDriver driver) : BasePageObject(driver)
     private IWebElement SubmitFormButton => _driver.FindElement(By.CssSelector(".form-control-submit"));
     private By LogInInsteadLink => By.CssSelector("div#content a");
     private By EmailAddressUsedAlertText => By.CssSelector("ul > .alert.alert-danger");
+    #endregion
 
-    // Page actions
-    public void GoToPageSignUpPage()
-    {
-        _driver.Navigate().GoToUrl("https://teststore.automationtesting.co.uk/index.php?controller=registration");
-    }
+    public void GoToPageSignUpPage() => GoToUrl(_signUpPageUrl);
+
 
     public void SetGenderMale()
     {
-        GenderMaleRadioButton.Click();
+        _genderMaleRadioButton.Click();
     }
 
     public void SetGenderFemale()
     {
-        GenderFemaleRadioButton.Click();
+        _genderFemaleRadioButton.Click();
     }
 
     public void EnterFirstName(string firstName)
     {
-        FirstNameField.Click();
-        FirstNameField.SendKeys(firstName);
+        _firstNameField.Click();
+        _firstNameField.SendKeys(firstName);
     }
 
     public void EnterLastName(string lastName)
     {
-        LastNameField.Click();
-        LastNameField.SendKeys(lastName);
+        _lastNameField.Click();
+        _lastNameField.SendKeys(lastName);
     }
 
     public void EnterEmail(string email)

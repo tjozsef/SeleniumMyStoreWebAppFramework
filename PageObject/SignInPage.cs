@@ -4,49 +4,55 @@ namespace SeleniumMyStoreWebAppTest.PageObject;
 
 public class SignInPage(IWebDriver driver) : BasePageObject(driver)
 {
-    private IWebElement Email => _driver.FindElement(By.Id("field-email"));
-    private IWebElement Password => _driver.FindElement(By.Id("field-password"));
-    private IWebElement ShowPasswordButton => _driver.FindElement(By.CssSelector(".input-group-btn > .btn"));
-    private IWebElement ForgotPasswordLink => _driver.FindElement(By.LinkText("Forgot your password?"));
-    private IWebElement SignInButton => _driver.FindElement(By.CssSelector("button#submit-login"));
+    private const string _signInPageUrl = "https://teststore.automationtesting.co.uk/index.php?controller=authentication";
+    #region Selector Queries
+    private By _emailFieldQ = By.Id("field-email");
+    private By _passwordFieldQ = By.Id("field-password");
+    private By _showPasswordButtonQ = By.CssSelector(".input-group-btn > .btn");
+    private By _forgotPasswordLinkQ = By.LinkText("Forgot your password?");
+    private By _signInButtonQ = By.CssSelector("button#submit-login");
 
-    public void GoToPageSignInPage()
-    {
-        _driver.Navigate().GoToUrl("https://teststore.automationtesting.co.uk/index.php?controller=authentication");
-    }
+    private IWebElement _emailField => _driver.FindElement(_emailFieldQ);
+    private IWebElement _passwordField => _driver.FindElement(_passwordFieldQ);
+    private IWebElement _showPasswordButton => _driver.FindElement(_showPasswordButtonQ);
+    private IWebElement _forgotPasswordLink => _driver.FindElement(_forgotPasswordLinkQ);
+    private IWebElement _signInButton => _driver.FindElement(_signInButtonQ);
+    #endregion
+    public void GoToPageSignInPage() => GoToUrl(_signInPageUrl);
+
 
     public void EnterEmail(string email)
     {
-        Email.Click();
-        Email.SendKeys(email);
+        _emailField.Click();
+        _emailField.SendKeys(email);
     }
 
     public void EnterPassword(string password)
     {
-        Password.Click();
-        Password.SendKeys(password);
+        _passwordField.Click();
+        _passwordField.SendKeys(password);
     }
 
     public void ClickSignInButton()
     {
-        SignInButton.Click();
+        _signInButton.Click();
     }
 
     public void ClickShowPasswordButton()
     {
-        ShowPasswordButton.Click();
+        _showPasswordButton.Click();
     }
 
     public void ClickForgotPasswordLink()
     {
-        ForgotPasswordLink.Click();
+        _forgotPasswordLink.Click();
     }
 
     public bool IsSignedOut()
     {
         try
         {
-            return ForgotPasswordLink.Displayed;
+            return _forgotPasswordLink.Displayed;
         }
         catch (NoSuchElementException)
         {

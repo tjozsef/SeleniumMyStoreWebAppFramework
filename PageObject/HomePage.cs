@@ -6,7 +6,7 @@ namespace SeleniumMyStoreWebAppTest.PageObject
     public class HomePage(IWebDriver driver) : BasePageObject(driver)
     {
 
-        private const string _pageUrl = "https://teststore.automationtesting.co.uk";
+        private const string _homePageUrl = "https://teststore.automationtesting.co.uk";
 
         #region Selector Queries
         private By _firstProductQ = By.XPath("//section[@id='content']/section/div/div/article/div/div/div/a/i");
@@ -26,7 +26,7 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         private IList<IWebElement> _newProductsList => _driver.FindElements(_newProductsListQ);
         #endregion
 
-        public void GoToHomePage() => _driver.Navigate().GoToUrl(_pageUrl);
+        public void GoToHomePage() => GoToUrl(_homePageUrl);
 
         public IList<IWebElement> GetPopularProductsList()
         {
