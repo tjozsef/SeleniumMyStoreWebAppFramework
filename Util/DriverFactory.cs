@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
+using SeleniumMyStoreWebAppTest.Configuration;
 using System.Configuration;
 namespace SeleniumMyStoreWebAppTest.Util;
 
@@ -61,7 +62,7 @@ public static class DriverFactory
 
     private static BrowserType GetBrowserType()
     {
-        var browserName = TestContext.Parameters["browserName"]?.ToUpper() ?? ConfigurationManager.AppSettings["browserName"]?.ToUpper() ?? "CHROME";
+        var browserName = TestContext.Parameters[Constans.BrowserKey]?.ToUpper() ?? ConfigurationManager.AppSettings[Constans.BrowserKey]?.ToUpper() ?? Constans.FallBackBrowser;
         var browserType = Enum.Parse<BrowserType>(browserName);
         return browserType;
     }
