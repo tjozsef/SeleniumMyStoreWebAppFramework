@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 
 namespace SeleniumMyStoreWebAppTest.PageObject
@@ -9,7 +10,11 @@ namespace SeleniumMyStoreWebAppTest.PageObject
 
 
         #region  Selector Queries
+        private By _productCountersQ = By.CssSelector("input[name='product-quantity-spin']");
+        private By _increaseCountersQ = By.CssSelector(".touchspin-up");
         private By _cartAppBarIconQ = By.XPath("//div[@id='_desktop_cart']/div/div/a/span");
+
+        private By _totalPricePerProductSQ = By.CssSelector("strong");
         private By _deleteProductButtonQ = By.XPath("//section[@id='main']/div/div/div/div[2]/ul/li/div/div[3]/div/div[2]/div/div/div/span[3]/button[2]/i");
         private By _increaseQuantityButtonQ = By.XPath("//section[@id='main']/div/div/div/div[2]/ul/li/div/div[3]/div/div[2]/div/div/div/span[3]/button/i");
         private By _checkoutButtonQ = By.XPath("//section[@id='main']/div/div/div/div[2]/ul/li/div/div[3]/div/div[3]/div/a/i");
@@ -18,6 +23,10 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         private By _continueShoppingTextButtonQ = By.LinkText("chevron_leftContinue shopping");
         private By _specialOfferQ = By.XPath("//section[@id='main']/div/div[2]/div/div/div[2]/div[2]/span[2]");
         private By _productCardsListQ = By.CssSelector("li .clearfix");
+
+        private ReadOnlyCollection<IWebElement> _productCounters => FindElements(_productCountersQ);
+        private ReadOnlyCollection<IWebElement> _increaseProductCounterButtons => FindElements(_increaseCountersQ);
+        private ReadOnlyCollection<IWebElement> _totalPricePerProductS => FindElements(_totalPricePerProductSQ);
 
         private IWebElement _cartAppBarIcon => _driver.FindElement(_cartAppBarIconQ);
         private IWebElement _deleteProductButton => _driver.FindElement(_deleteProductButtonQ);
@@ -32,6 +41,34 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         public void GoToCartPage() => GoToUrl(_cartPageUrl);
 
 
+        public int GetProductCountForRowNumber(int productRowNumber = 0)
+        {
+            var productCounters = _productCounters;
+            var counterElement = productCounters[productRowNumber];
+            var productCount = GetCountOnElement(counterElement);
+            return productCount;
+        }
+
+        public double GetTotalProductPriceForRowNumber(int productRowNumber = 0)
+        {
+            var allProductTotalPrices = _totalPricePerProductS;
+            var productTotalPriceElement = allProductTotalPrices[productRowNumber];
+            var productTotalPrice = GetNumberOnElement(productTotalPriceElement);
+            return productTotalPrice;
+        }
+
+        public void ClickIncreaseProductCounterForRowNumber(int productRowNumber = 0)
+        {
+            var increaseCounterButtons = _increaseProductCounterButtons;
+            var increaseCounterButton = increaseCounterButtons[productRowNumber];
+            increaseCounterButton.Click();
+        }
+
+        public void ClickDecreaseProductCounterForRowNumber(int productRowNumber = 0)
+        {
+            throw new NotImplementedException();
+
+        }
         public void GoToToCheckoutPage()
         {
             _driver.Navigate().GoToUrl(_checkoutPageUrl);

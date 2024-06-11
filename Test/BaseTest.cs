@@ -1,4 +1,5 @@
 
+using System.Globalization;
 using AventStack.ExtentReports;
 using OpenQA.Selenium;
 using SeleniumMyStoreWebAppTest.Util;
@@ -21,12 +22,18 @@ public class BaseTest
         Reporter.AttachReporter("index.html");
     }
 
+
     [OneTimeTearDown]
     public static void FlushReporters()
     {
         Reporter.FlushReporters();
     }
 
+    [SetUp]
+    public void SetupCultureSettings()
+    {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
+    }
 
     [SetUp]
     public void SetupDriver()

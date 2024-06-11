@@ -9,7 +9,11 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         #region Selector Queries
         private By _increaceProductCountQ = By.CssSelector(".touchspin-up");
         private By _decreaseProductCountQ = By.CssSelector(".touchspin-down");
+        private By _productCounterQ = By.CssSelector("#quantity_wanted");
+        private By _cartButtonOnAppbarQ = By.CssSelector("#_desktop_cart");
         private By _wishlistButtonQ = By.CssSelector(".wishlist-button-product > .material-icons");
+        private By _productCounterOnModalQ = By.CssSelector("strong");
+        private By _currentPriceTagQ = By.CssSelector(".current-price-value");
         private By _modalHeaderQ = By.CssSelector(".show .modal-header");
         private By _modalSpanQ = By.CssSelector(".show span");
         private By _modalCancelQ = By.CssSelector(".show .modal-cancel");
@@ -23,12 +27,16 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         private By _productDetailsLinkQ = By.LinkText("Product Details");
         private By _descriptionLinkQ = By.LinkText("Description");
         private By _addToCartButtonQ = By.CssSelector(".add-to-cart");
-        private By _closeContinueShoppingModalButtonQ = By.CssSelector(".close .material-icons");
+        private By _closeModalButtonQ = By.CssSelector(".close .material-icons");
         private By _proceedToCheckoutButtonQ = By.CssSelector(".cart-content-btn > .btn-secondary");
         private By _continueShoppingButtonQ = By.CssSelector(".cart-content-btn > .btn-primary");
 
         private IWebElement _increaceProductCount => _driver.FindElement(_increaceProductCountQ);
         private IWebElement _decreaseProductCount => _driver.FindElement(_decreaseProductCountQ);
+        private IWebElement _productCounterOnPDP => _driver.FindElement(_productCounterQ);
+        private IWebElement _productCounterOnModal => _driver.FindElement(_productCounterOnModalQ);
+        private IWebElement _currentPriceTag => FindElement(_currentPriceTagQ);
+        private IWebElement _cartButtonOnAppbar => _driver.FindElement(_cartButtonOnAppbarQ);
         private IWebElement _wishlistButton => _driver.FindElement(_wishlistButtonQ);
         private IWebElement _modalHeader => _driver.FindElement(_modalHeaderQ);
         private IWebElement _modalSpan => _driver.FindElement(_modalSpanQ);
@@ -43,7 +51,7 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         private IWebElement _productDetailsLink => _driver.FindElement(_productDetailsLinkQ);
         private IWebElement _descriptionLink => _driver.FindElement(_descriptionLinkQ);
         private IWebElement _addToCartButton => _driver.FindElement(_addToCartButtonQ);
-        private IWebElement _closeContinueShoppingModalButton => _driver.FindElement(_closeContinueShoppingModalButtonQ);
+        private IWebElement _closeModalButton => _driver.FindElement(_closeModalButtonQ);
         private IWebElement _proceedToCheckoutButton => _driver.FindElement(_proceedToCheckoutButtonQ);
         private IWebElement _continueShoppingButton => _driver.FindElement(_continueShoppingButtonQ);
         #endregion
@@ -65,6 +73,17 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         public void ClickDeacreaseProductCount()
         {
             _decreaseProductCount.Click();
+        }
+
+        public int GetProductCountOnPDP() => GetCountOnElement(_productCounterOnPDP);
+
+
+        public int GetProductCountOnModal() => GetCountOnElementWithWaitUntilVisible(_productCounterOnModalQ);
+
+        public CartPage ClickCartButtonOnAppbar()
+        {
+            _cartButtonOnAppbar.Click();
+            return new CartPage(_driver);
         }
 
         public void ClickWishlistButton()
@@ -138,9 +157,9 @@ namespace SeleniumMyStoreWebAppTest.PageObject
             _addToCartButton.Click();
         }
 
-        public void ClickCloseContinueShoppingModalButton()
+        public void ClickCloseModalButton()
         {
-            _closeContinueShoppingModalButton.Click();
+            _closeModalButton.Click();
         }
 
         public void ClickProceedToCheckoutButton()
@@ -152,5 +171,7 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         {
             _continueShoppingButton.Click();
         }
+
+        public double GetCurrentPriceTag() => GetNumberOnElement(_currentPriceTag);
     }
 }
