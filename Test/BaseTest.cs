@@ -2,8 +2,9 @@
 using System.Globalization;
 using AventStack.ExtentReports;
 using OpenQA.Selenium;
+using SeleniumMyStoreWebAppTest.Configuration;
 using SeleniumMyStoreWebAppTest.Util;
-
+[assembly: LevelOfParallelism(Constans.LevelOfParallelism)]
 namespace SeleniumMyStoreWebAppTest;
 
 
