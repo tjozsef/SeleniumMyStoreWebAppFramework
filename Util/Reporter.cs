@@ -1,7 +1,7 @@
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 
-namespace SeleniumMyStoreWebAppTest.Util;
+namespace SeleniumMyStoreWebAppFramework.Util;
 
 public static class Reporter
 {

@@ -1,7 +1,7 @@
-using SeleniumMyStoreWebAppTest.PageObject;
+using SeleniumMyStoreWebAppFramework.PageObject;
 using CategoryAttribute = NUnit.Framework.CategoryAttribute;
 
-namespace SeleniumMyStoreWebAppTest.Auth;
+namespace SeleniumMyStoreWebAppFramework.Test.Auth;
 public class PasswordResetPositive : BaseTest
 {
     private PasswordResetPage _passwordResetPage;

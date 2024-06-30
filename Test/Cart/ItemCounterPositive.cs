@@ -1,6 +1,6 @@
-using SeleniumMyStoreWebAppTest.PageObject;
+using SeleniumMyStoreWebAppFramework.PageObject;
 
-namespace SeleniumMyStoreWebAppTest.Cart;
+namespace SeleniumMyStoreWebAppFramework.Test.Cart;
 
 public class ItemCounterPositive : BaseTest
 {

@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 
-namespace SeleniumMyStoreWebAppTest.PageObject
+namespace SeleniumMyStoreWebAppFramework.PageObject
 {
     public class CartPage(IWebDriver driver) : BasePageObject(driver)
     {

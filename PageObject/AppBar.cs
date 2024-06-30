@@ -1,6 +1,6 @@
 using OpenQA.Selenium;
 
-namespace SeleniumMyStoreWebAppTest.PageObject
+namespace SeleniumMyStoreWebAppFramework.PageObject
 {
     public class AppBar(IWebDriver driver) : BasePageObject(driver)
     {

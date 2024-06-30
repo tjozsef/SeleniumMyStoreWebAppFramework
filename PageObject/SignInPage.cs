@@ -1,6 +1,6 @@
 using OpenQA.Selenium;
 
-namespace SeleniumMyStoreWebAppTest.PageObject;
+namespace SeleniumMyStoreWebAppFramework.PageObject;
 
 public class SignInPage(IWebDriver driver) : BasePageObject(driver)
 {

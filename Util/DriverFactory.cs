@@ -3,9 +3,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using SeleniumMyStoreWebAppTest.Configuration;
+using SeleniumMyStoreWebAppFramework.Configuration;
 using System.Configuration;
-namespace SeleniumMyStoreWebAppTest.Util;
+namespace SeleniumMyStoreWebAppFramework.Util;
 
 
 

@@ -1,7 +1,7 @@
-using SeleniumMyStoreWebAppTest.DataModel;
-using SeleniumMyStoreWebAppTest.PageObject;
-using SeleniumMyStoreWebAppTest.Util;
-namespace SeleniumMyStoreWebAppTest.Auth
+using SeleniumMyStoreWebAppFramework.DataModel;
+using SeleniumMyStoreWebAppFramework.PageObject;
+using SeleniumMyStoreWebAppFramework.Util;
+namespace SeleniumMyStoreWebAppFramework.Test.Auth
 {
     [TestFixture]
     public class SignUpPositive : BaseTest

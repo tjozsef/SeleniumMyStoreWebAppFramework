@@ -1,4 +1,4 @@
-namespace SeleniumMyStoreWebAppTest.Configuration
+namespace SeleniumMyStoreWebAppFramework.Configuration
 {
 
     static class Constans
@@ -6,6 +6,6 @@ namespace SeleniumMyStoreWebAppTest.Configuration
         public static string FallBackBrowser => "Chrome";
         public static string BrowserKey => "browserName";
 
-        public const int LevelOfParallelism = 3;
+        public const int LevelOfParallelism = 2;
     }
 }

@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
-using SeleniumMyStoreWebAppTest.Util;
+using SeleniumMyStoreWebAppFramework.Util;
 
-namespace SeleniumMyStoreWebAppTest.PageObject;
+namespace SeleniumMyStoreWebAppFramework.PageObject;
 
 public class PasswordResetPage(IWebDriver driver) : BasePageObject(driver)
 {

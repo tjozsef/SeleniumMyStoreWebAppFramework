@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace SeleniumMyStoreWebAppTest.Util;
+namespace SeleniumMyStoreWebAppFramework.Util;
 
 public class TestCaseDataReader
 {

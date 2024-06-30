@@ -1,8 +1,7 @@
+using SeleniumMyStoreWebAppFramework.DataModel;
+using SeleniumMyStoreWebAppFramework.PageObject;
 
-using SeleniumMyStoreWebAppTest.DataModel;
-using SeleniumMyStoreWebAppTest.PageObject;
-
-namespace SeleniumMyStoreWebAppTest.Auth
+namespace SeleniumMyStoreWebAppFramework.Test.Auth
 {
     public class SignInPositive : BaseTest
     {

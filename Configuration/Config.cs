@@ -1,4 +1,4 @@
-namespace SeleniumMyStoreWebAppTest.Configuration;
+namespace SeleniumMyStoreWebAppFramework.Configuration;
 
 public class Config
 {

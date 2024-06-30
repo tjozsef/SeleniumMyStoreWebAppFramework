@@ -1,12 +1,11 @@
 using System.Collections.ObjectModel;
-using System.Globalization;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 
-namespace SeleniumMyStoreWebAppTest.PageObject;
+namespace SeleniumMyStoreWebAppFramework.PageObject;
 
 public abstract class BasePageObject(IWebDriver driver)
 {

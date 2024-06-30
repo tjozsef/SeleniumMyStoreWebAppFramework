@@ -1,6 +1,6 @@
 using System.Reflection.Metadata;
 
-namespace SeleniumMyStoreWebAppTest;
+namespace SeleniumMyStoreWebAppFramework;
 
 static public class TestDataConstants
 {

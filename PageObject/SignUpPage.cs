@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 
 
-namespace SeleniumMyStoreWebAppTest.PageObject;
+namespace SeleniumMyStoreWebAppFramework.PageObject;
 public class SignUpPage(IWebDriver driver) : BasePageObject(driver)
 {
 

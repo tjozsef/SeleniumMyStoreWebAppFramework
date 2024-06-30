@@ -1,4 +1,4 @@
-namespace SeleniumMyStoreWebAppTest.DataModel;
+namespace SeleniumMyStoreWebAppFramework.DataModel;
 
 public class AuthCredential
 {

@@ -1,6 +1,7 @@
-using SeleniumMyStoreWebAppTest.PageObject;
+using SeleniumMyStoreWebAppFramework.PageObject;
+using SeleniumMyStoreWebAppFramework.Test;
 
-namespace SeleniumMyStoreWebAppTest.Cart;
+namespace SeleniumMyStoreWebAppFramework.Test.Cart;
 
 public class AddProductsPositive : BaseTest
 {

@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace SeleniumMyStoreWebAppTest.Util;
+namespace SeleniumMyStoreWebAppFramework.Util;
 
 public static class IWebElementExtension
 {
