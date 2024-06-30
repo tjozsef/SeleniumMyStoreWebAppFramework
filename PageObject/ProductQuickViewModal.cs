@@ -16,7 +16,13 @@ class ProductQuickViewModal(IWebDriver driver) : BasePageObject(driver)
 
     public void CloseQuickViewModal() => _closeModalButton.Click();
 
-    public void AddProductToCart() => _addToCartButton.Click();
+    public ProductSuccessfullyAddedModal AddProductToCart()
+    {
+        _addToCartButton.Click();
+        var successfullyAddedModal = new ProductSuccessfullyAddedModal(driver);
+        successfullyAddedModal.WaitUntilModalIsVisible();
+        return successfullyAddedModal;
+    }
 
     public void WaitUntilModalIsVisible() => WaitUntilElementIsClickAble(_addToCartButton);
 
