@@ -15,8 +15,7 @@ public class AddProductsPositive : BaseTest
     [Test]
     public void AddAllPopularProductOnHomePageToCart()
     {
-        var homePage = new HomePage(_driver);
-        homePage.GoToHomePage();
+        var homePage = OpenHomePage();
         var popularProductsList = homePage.GetPopularProductsList();
         AddAllProducts(popularProductsList, homePage);
     }
@@ -24,8 +23,7 @@ public class AddProductsPositive : BaseTest
     [Test]
     public void AddAllProductsOnSaleOnHomePage()
     {
-        var homePage = new HomePage(_driver);
-        homePage.GoToHomePage();
+        var homePage = OpenHomePage();
         var onSaleProductsList = homePage.GetOnSaleProductsList();
         AddAllProducts(onSaleProductsList, homePage);
     }
@@ -33,8 +31,8 @@ public class AddProductsPositive : BaseTest
     [Test]
     public void AddNewProductsOnHomePage()
     {
-        var homePage = new HomePage(_driver);
-        homePage.GoToHomePage();
+        var homePage = OpenHomePage();
+
         var newProductsList = homePage.GetNewProductsList();
         AddAllProducts(newProductsList, homePage);
     }
@@ -58,6 +56,12 @@ public class AddProductsPositive : BaseTest
         Assert.That(productsInCartCount, Is.EqualTo(productsCount));
     }
 
+    private HomePage OpenHomePage()
+    {
+        var homePage = new HomePage(_driver);
+        homePage.GoToHomePage();
+        return homePage;
+    }
 
 
 }
