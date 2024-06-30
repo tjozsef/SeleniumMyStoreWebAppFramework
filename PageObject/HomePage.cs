@@ -51,14 +51,12 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
 
 
 
-        //TODO: Refactor to use composition or inner class for modal objects
         public void AddProductToCartWithQuickViewModal(IWebElement productCard)
         {
             var quickViewModal = OpenQuickViewModalForProduct(productCard);
-            quickViewModal.AddProductToCart();
-            WaitUntilElementIsVisible(By.CssSelector("#blockcart-modal"));
+            var successfullyAddedModal = quickViewModal.AddProductToCart();
             ScrollToWebElement(productCard);
-            _continueShoppingButton.Click();
+            successfullyAddedModal.ContinueShopping();
         }
 
         private ProductQuickViewModal OpenQuickViewModalForProduct(IWebElement productCard)

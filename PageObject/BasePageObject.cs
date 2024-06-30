@@ -83,7 +83,7 @@ public abstract class BasePageObject(IWebDriver driver)
         action.MoveToElement(element).Perform();
     }
 
-    protected void WaitUntilElementIsClickAble(IWebElement element, int waitSeconds = 4)
+    protected void WaitUntilElementIsClickAble(IWebElement element, int waitSeconds = 5)
     {
         var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(waitSeconds));
         wait.Until(ExpectedConditions.ElementToBeClickable(element));
