@@ -30,10 +30,11 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
 
         public void GoToHomePage() => GoToUrl(_homePageUrl);
 
-        public IList<IWebElement> GetPopularProductsList()
-        {
-            return _popularProductsList;
-        }
+        public IList<IWebElement> GetPopularProductsList() => _popularProductsList;
+
+        public IList<IWebElement> GetOnSaleProductsList() => _onSaleProductsList;
+
+        public IList<IWebElement> GetNewProductsList() => _newProductsList;
         public void ClickFirstPopularProduct()
         {
             _firstPopularProduct.Click();
@@ -51,12 +52,18 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
 
 
 
-        public void AddProductToCartWithQuickViewModal(IWebElement productCard)
+        public bool AddProductToCartWithQuickViewModal(IWebElement productCard)
         {
             var quickViewModal = OpenQuickViewModalForProduct(productCard);
             var successfullyAddedModal = quickViewModal.AddProductToCart();
             ScrollToWebElement(productCard);
+            if (successfullyAddedModal == null)
+            {
+                quickViewModal.CloseQuickViewModal();
+                return false;
+            }
             successfullyAddedModal.ContinueShopping();
+            return true;
         }
 
         private ProductQuickViewModal OpenQuickViewModalForProduct(IWebElement productCard)
