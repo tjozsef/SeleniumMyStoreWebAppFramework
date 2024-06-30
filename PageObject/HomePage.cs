@@ -8,25 +8,23 @@ namespace SeleniumMyStoreWebAppTest.PageObject
 
         private const string _homePageUrl = "https://teststore.automationtesting.co.uk";
 
+        private readonly AppBar _appBar = new(driver);
+
         #region Selector Queries
 
-        private By _signOutButtonQ = By.CssSelector(".logout");
-        private By _firstProductQ = By.XPath("//section[@id='content']/section/div/div/article/div/div/div/a/i");
-        private By _secondProductQ = By.XPath("//section[@id='content']/section[2]/div/div/article/div/div/div/a/i");
-        private By _addtoCartButtonQ = By.CssSelector(".add-to-cart.btn.btn-primary");
-        private By _continueShoppingButtonQ = By.CssSelector(".cart-content-btn [data-dismiss]");
-        private By _popularProductsListQ = By.CssSelector(".products.row > div");
-        private By _onSaleProductsListQ = By.XPath("//section[@id='content']/section[2]/div/div");
-        private By _newProductsListQ = By.XPath("//section[@id='content']/section[3]/div/div");
+        private By _addtoCartButtonQ = CssSelector(".add-to-cart.btn.btn-primary");
+        private By _continueShoppingButtonQ = CssSelector(".cart-content-btn [data-dismiss]");
+        private By _popularProductsListQ = CssSelector(".products.row > div");
+        private By _onSaleProductsListQ = XPath("//section[@id='content']/section[2]/div/div");
+        private By _newProductsListQ = XPath("//section[@id='content']/section[3]/div/div");
 
-        private IWebElement _signOutButton => _driver.FindElement(_signOutButtonQ);
-        private IWebElement _firstProduct => _driver.FindElement(_firstProductQ);
-        private IWebElement _secondProduct => _driver.FindElement(_secondProductQ);
-        private IWebElement _addtoCartButton => _driver.FindElement(_addtoCartButtonQ);
-        private IWebElement _continueShoppingButton => _driver.FindElement(_continueShoppingButtonQ);
-        private IList<IWebElement> _popularProductsList => _driver.FindElements(_popularProductsListQ);
-        private IList<IWebElement> _onSaleProductsList => _driver.FindElements(_onSaleProductsListQ);
-        private IList<IWebElement> _newProductsList => _driver.FindElements(_newProductsListQ);
+        private IWebElement _firstPopularProduct => FindElement(_popularProductsListQ);
+        private IWebElement _firstOnSaleProduct => FindElement(_onSaleProductsListQ);
+        private IWebElement _addtoCartButton => FindElement(_addtoCartButtonQ);
+        private IWebElement _continueShoppingButton => FindElement(_continueShoppingButtonQ);
+        private IList<IWebElement> _popularProductsList => FindElements(_popularProductsListQ);
+        private IList<IWebElement> _onSaleProductsList => FindElements(_onSaleProductsListQ);
+        private IList<IWebElement> _newProductsList => FindElements(_newProductsListQ);
         #endregion
 
         public void GoToHomePage() => GoToUrl(_homePageUrl);
@@ -35,9 +33,9 @@ namespace SeleniumMyStoreWebAppTest.PageObject
         {
             return _popularProductsList;
         }
-        public void ClickFirstProduct()
+        public void ClickFirstPopularProduct()
         {
-            _firstProduct.Click();
+            _firstPopularProduct.Click();
         }
 
         public void ClickSubmitButton()
@@ -50,10 +48,7 @@ namespace SeleniumMyStoreWebAppTest.PageObject
             _continueShoppingButton.Click();
         }
 
-        public void ClickSecondProduct()
-        {
-            _secondProduct.Click();
-        }
+
 
         //TODO: Refactor to use composition or inner class for modal objects
         public void AddProductToCartWithQuickViewModal(IWebElement productCard)
@@ -69,10 +64,7 @@ namespace SeleniumMyStoreWebAppTest.PageObject
             _continueShoppingButton.Click();
         }
 
-        public bool IsSignedIn()
-        {
-            return IsElementDisplayed(_signOutButtonQ);
-        }
+        public bool IsUserSignedIn() => _appBar.IsUserSignedIn();
 
     }
 }

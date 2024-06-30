@@ -12,9 +12,14 @@ public abstract class BasePageObject(IWebDriver driver)
 {
     protected IWebDriver _driver = driver;
     private IJavaScriptExecutor _jsExecutor => (IJavaScriptExecutor)_driver;
+    protected static By CssSelector(string cssSelectorToFind) => By.CssSelector(cssSelectorToFind);
 
+    protected static By Name(string nameToFind) => By.Name(nameToFind);
+
+    protected static By XPath(string xpathToFind) => By.XPath(xpathToFind);
 
     protected IWebElement FindElement(By selector) => _driver.FindElement(selector);
+
     protected ReadOnlyCollection<IWebElement> FindElements(By selector) => _driver.FindElements(selector);
     protected void GoToUrl(string url)
     {

@@ -28,7 +28,7 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signUpPage.EnterPassword(authCredential.Password);
             _signUpPage.ClickAcceptTermsAndPolicyCheckbox();
             var homePage = _signUpPage.ClickSubmitFormButton();
-            Assert.That(homePage.IsSignedIn(), "Expected postcondition User is signed in!");
+            Assert.That(homePage.IsUserSignedIn(), "Expected postcondition User is signed in!");
         }
 
 
@@ -44,7 +44,7 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signUpPage.EnterPassword(TestDataConstants.StrongPassword);
             _signUpPage.ClickAcceptTermsAndPolicyCheckbox();
             var homePage = _signUpPage.ClickSubmitFormButton();
-            Assert.That(homePage.IsSignedIn(), "Expected postcondition User is signed in!");
+            Assert.That(homePage.IsUserSignedIn(), "Expected postcondition User is signed in!");
         }
         [Test]
         [Category("smoke")]
@@ -60,7 +60,7 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signUpPage.ClickReceiveNewsletterCheckbox();
             _signUpPage.ClickReceiveOffersCheckbox();
             var homePage = _signUpPage.ClickSubmitFormButton();
-            Assert.That(homePage.IsSignedIn(), "Expected postcondition User is signed in!");
+            Assert.That(homePage.IsUserSignedIn(), "Expected postcondition User is signed in!");
         }
 
 

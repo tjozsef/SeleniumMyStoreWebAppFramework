@@ -11,7 +11,7 @@ namespace SeleniumMyStoreWebAppTest.Auth
         public void SetupPage()
         {
             _signInPage = new SignInPage(_driver);
-            _signInPage.GoToPageSignInPage();
+            _signInPage.GoToSignInPage();
         }
 
         [Test, Description("Sign in with valid credentials.")]
@@ -25,7 +25,7 @@ namespace SeleniumMyStoreWebAppTest.Auth
             _signInPage.EnterPassword(credential.Password);
             _signInPage.ClickShowPasswordButton();
             var homePage = _signInPage.ClickSignInButton();
-            Assert.That(homePage.IsSignedIn(), "User is not signed in!");
+            Assert.That(homePage.IsUserSignedIn(), "User is not signed in!");
         }
 
         private static IEnumerable<AuthCredential> GetValidSignInCredentials()

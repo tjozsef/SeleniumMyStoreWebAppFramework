@@ -18,7 +18,7 @@ public class SignInPage(IWebDriver driver) : BasePageObject(driver)
     private IWebElement _forgotPasswordLink => _driver.FindElement(_forgotPasswordLinkQ);
     private IWebElement _signInButton => _driver.FindElement(_signInButtonQ);
     #endregion
-    public void GoToPageSignInPage() => GoToUrl(_signInPageUrl);
+    public void GoToSignInPage() => GoToUrl(_signInPageUrl);
 
 
     public void EnterEmail(string email)
