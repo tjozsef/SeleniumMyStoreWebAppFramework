@@ -1,9 +1,9 @@
 using OpenQA.Selenium;
 using SeleniumMyStoreWebAppFramework.PageObject;
 
-namespace SeleniumMyStoreWebAppFramework.Test.Cart;
+namespace SeleniumMyStoreWebAppFramework.Test.ViewProduct;
 
-public class AddProductsPositive : BaseTest
+public class CompareProductData : BaseTest
 {
     private CartPage _cartPage;
     [SetUp]
@@ -12,29 +12,7 @@ public class AddProductsPositive : BaseTest
         _cartPage = new CartPage(_driver);
     }
 
-    [Test]
-    public void AddAllPopularProductOnHomePageToCartCheckProductCount()
-    {
-        var homePage = OpenHomePage();
-        var popularProductsList = homePage.GetPopularProductsElementList();
-        AddAllProductsToCartCheckProductCount(popularProductsList, homePage);
-    }
 
-    [Test]
-    public void AddAllProductsOnSaleOnHomePageToCartCheckProductCount()
-    {
-        var homePage = OpenHomePage();
-        var onSaleProductsList = homePage.GetOnSaleProductsElementList();
-        AddAllProductsToCartCheckProductCount(onSaleProductsList, homePage);
-    }
-
-    [Test]
-    public void AddNewProductsOnHomePageToCartCheckProductCount()
-    {
-        var homePage = OpenHomePage();
-        var newProductsList = homePage.GetNewProductsElementList();
-        AddAllProductsToCartCheckProductCount(newProductsList, homePage);
-    }
 
     [Test]
     public void ComparePopularProductDataOnHomePageAndQuickViewAndCart()

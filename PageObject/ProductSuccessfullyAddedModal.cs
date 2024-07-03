@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 namespace SeleniumMyStoreWebAppFramework.PageObject;
 
-class ProductSuccessfullyAddedModal(IWebDriver driver) : BasePageObject(driver)
+public class ProductSuccessfullyAddedModal(IWebDriver driver) : BasePageObject(driver)
 {
 
     #region Selector queries

@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using SeleniumMyStoreWebAppFramework.DataModel;
+using SeleniumMyStoreWebAppFramework.PageObject.Card;
 
 
 namespace SeleniumMyStoreWebAppFramework.PageObject
@@ -30,11 +32,25 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
 
         public void GoToHomePage() => GoToUrl(_homePageUrl);
 
-        public IList<IWebElement> GetPopularProductsList() => _popularProductsList;
+        public IList<IWebElement> GetPopularProductsElementList() => _popularProductsList;
 
-        public IList<IWebElement> GetOnSaleProductsList() => _onSaleProductsList;
+        public IList<IWebElement> GetOnSaleProductsElementList() => _onSaleProductsList;
 
-        public IList<IWebElement> GetNewProductsList() => _newProductsList;
+        public IList<IWebElement> GetNewProductsElementList() => _newProductsList;
+
+        public IList<Product> GetPopularProductsList() => GetProductsList(_popularProductsList);
+
+
+        public IList<Product> GetProductsList(IList<IWebElement> elementList)
+        {
+            IList<Product> productList = [];
+            foreach (var element in elementList)
+            {
+                var product = Product.FromIWebelement(element, ProductCardLocators.ForHomePage());
+                productList.Add(product);
+            }
+            return productList;
+        }
         public void ClickFirstPopularProduct()
         {
             _firstPopularProduct.Click();
@@ -66,7 +82,8 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
             return true;
         }
 
-        private ProductQuickViewModal OpenQuickViewModalForProduct(IWebElement productCard)
+        public ProductQuickViewModal OpenQuickViewModalForProduct(Product product) => OpenQuickViewModalForProduct(product.Element);
+        public ProductQuickViewModal OpenQuickViewModalForProduct(IWebElement productCard)
         {
             ScrollAndHoverMouseOverWebElement(productCard);
             var quickViewTextButton = productCard.FindElement(_quickViewTextButtonQ);
