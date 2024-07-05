@@ -40,6 +40,11 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
 
         public IList<Product> GetPopularProductsList() => GetProductsList(_popularProductsList);
 
+        public IList<Product> GetOnSaleProductsList() => GetProductsList(_onSaleProductsList);
+        public IList<Product> GetNewProductsList() => GetProductsList(_newProductsList);
+
+
+
 
         public IList<Product> GetProductsList(IList<IWebElement> elementList)
         {
@@ -82,7 +87,7 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
             return true;
         }
 
-        public ProductQuickViewModal OpenQuickViewModalForProduct(Product product) => OpenQuickViewModalForProduct(product.Element);
+        public ProductQuickViewModal OpenQuickViewModalForProduct(Product product) => OpenQuickViewModalForProduct(product.ProductCardElement);
         public ProductQuickViewModal OpenQuickViewModalForProduct(IWebElement productCard)
         {
             ScrollAndHoverMouseOverWebElement(productCard);

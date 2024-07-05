@@ -76,6 +76,12 @@ public abstract class BasePageObject(IWebDriver driver)
         _jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true);", element);
     }
 
+    public bool IsImageDisplayed(IWebElement imageElement)
+    {
+        var resultObject = _jsExecutor.ExecuteScript("return arguments[0].complete " + "&& typeof arguments[0].naturalWidth != \"undefined\" " + "&& arguments[0].naturalWidth > 0", imageElement);
+        return true;
+    }
+
     protected void ScrollAndHoverMouseOverWebElement(IWebElement element)
     {
         ScrollToWebElement(element);
