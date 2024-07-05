@@ -5,14 +5,6 @@ namespace SeleniumMyStoreWebAppFramework.Test.ViewProduct;
 
 public class CompareProductDataOnHomePageToQuickViewModal : BaseTest
 {
-    private CartPage _cartPage;
-    [SetUp]
-    public void SetupPage()
-    {
-        _cartPage = new CartPage(_driver);
-    }
-
-
 
     [Test]
     public void ComparePopularProductData()
@@ -43,8 +35,14 @@ public class CompareProductDataOnHomePageToQuickViewModal : BaseTest
     {
         foreach (var product in productList)
         {
-            Assert.That(homePage.IsImageDisplayed(product.Image), Is.True,
-            $"Image is missing for {product.Name} on homepage.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(homePage.IsImageDisplayed(product.Image), Is.True,
+                 $"Image is missing for {product.Name} on homepage.");
+                Assert.That(product.Quantity, Is.EqualTo(null),
+                $"On home page quantity should not be visible for {product.Name}");
+            });
+
             var quickViewModal = homePage.OpenQuickViewModalForProduct(product);
             var quickViewModalProduct = quickViewModal.GetProduct();
             Assert.Multiple(() =>
@@ -52,6 +50,8 @@ public class CompareProductDataOnHomePageToQuickViewModal : BaseTest
                 Assert.That(quickViewModalProduct.Name, Does.StartWith(product.Name.Replace(".", "")), "Product name does not match.");
                 Assert.That(quickViewModalProduct.Price, Is.EqualTo(product.Price), "Product price doues not match.");
                 Assert.That(quickViewModalProduct.RegularPrice, Is.EqualTo(product.RegularPrice), "Product regular price does not match.");
+                Assert.That(quickViewModalProduct.Quantity, Is.EqualTo(1), $"Expected default quantity on quick view modal is 1, " +
+                "actual : {quickViewModalProduct.Quantity}");
                 Assert.That(quickViewModal.IsImageDisplayed(quickViewModalProduct.Image), Is.True, $"Image is missing for {product.Name} on QuickViewModal.");
             });
             quickViewModal.CloseQuickViewModal();
