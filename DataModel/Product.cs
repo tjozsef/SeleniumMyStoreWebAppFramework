@@ -1,5 +1,6 @@
 
 using OpenQA.Selenium;
+using SeleniumMyStoreWebAppFramework.PageObject;
 using SeleniumMyStoreWebAppFramework.PageObject.Card;
 
 namespace SeleniumMyStoreWebAppFramework.DataModel;
@@ -16,17 +17,31 @@ public class Product(double? price, double? regularPrice, string productName,
 
     public IWebElement Image { get; set; } = imageElement;
 
-    public static Product FromIWebelement(IWebElement productCardElement, ProductCardLocators cardLocators)
+    public static Product FromIWebelement(BasePageObject pageObject, IWebElement productCardElement, ProductCardLocators cardLocators)
     {
-        var productName = productCardElement.FindElement(cardLocators.ProductNameQ).Text;
+        string? quantityStr = GetQuantityStringFromCounterOrText(pageObject, productCardElement, cardLocators);
         var priceStr = productCardElement.FindElement(cardLocators.PriceQ).Text;
-        var regularPricesList = productCardElement.FindElements(cardLocators.RegularPriceQ);
-        var regularPriceStr = regularPricesList.Count == 0 ? null : regularPricesList[0].Text;
+        var productName = productCardElement.FindElement(cardLocators.ProductNameQ).Text;
         var imageElement = productCardElement.FindElement(cardLocators.ImageQ);
-        var quantityList = productCardElement.FindElements(cardLocators.QuantityQ);
-        var quantityStr = quantityList.Count == 0 ? null : quantityList[0].GetDomAttribute("value");
+        var regularPriceStr = GetRegularPriceString(pageObject, productCardElement, cardLocators);
         return new Product(PriceTagToDouble(priceStr), PriceTagToDouble(regularPriceStr),
         productName, productCardElement, imageElement, QuantityTagToInt(quantityStr));
+    }
+
+    private static string? GetRegularPriceString(BasePageObject pageObject, IWebElement productCardElement, ProductCardLocators cardLocators)
+    {
+        if (pageObject is ProductSuccessfullyAddedModal) return null;
+        var regularPriceElement = pageObject.FindSubElementOrNullQuickly(productCardElement, cardLocators.RegularPriceQ);
+        return regularPriceElement?.Text;
+    }
+
+    private static string? GetQuantityStringFromCounterOrText(BasePageObject pageObject, IWebElement productCardElement, ProductCardLocators cardLocators)
+    {
+        if (pageObject is HomePage) return null;
+        var quantityElement = pageObject.FindSubElementOrNullQuickly(productCardElement, cardLocators.QuantityQ);
+        if (quantityElement == null) return null;
+        var quantityStr = quantityElement.Text == "" ? quantityElement.GetDomAttribute("value") : quantityElement.Text;
+        return quantityStr;
     }
     private static double? PriceTagToDouble(string? price)
     {

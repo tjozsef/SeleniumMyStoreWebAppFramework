@@ -51,7 +51,7 @@ public class AddProductsPositive : BaseTest
                 Assert.That(quickViewModalProduct.Price, Is.EqualTo(product.Price), "Product price doues not match.");
                 Assert.That(quickViewModalProduct.RegularPrice, Is.EqualTo(product.RegularPrice), "Product regular price does not match.");
             });
-            quickViewModal.CloseQuickViewModal();
+            quickViewModal.Close();
         }
     }
 
@@ -74,13 +74,5 @@ public class AddProductsPositive : BaseTest
         TestContext.Progress.WriteLine($"Navigated to the Cart page, {productsInCartCount} different products visible inside the cart.");
         Assert.That(productsInCartCount, Is.EqualTo(productsCount));
     }
-
-    private HomePage OpenHomePage()
-    {
-        var homePage = new HomePage(_driver);
-        homePage.GoToHomePage();
-        return homePage;
-    }
-
 
 }

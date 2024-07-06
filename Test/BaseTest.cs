@@ -3,8 +3,9 @@ using System.Globalization;
 using AventStack.ExtentReports;
 using OpenQA.Selenium;
 using SeleniumMyStoreWebAppFramework.Configuration;
+using SeleniumMyStoreWebAppFramework.PageObject;
 using SeleniumMyStoreWebAppFramework.Util;
-[assembly: LevelOfParallelism(Constans.LevelOfParallelism)]
+[assembly: LevelOfParallelism(DefaultConstans.LevelOfParallelism)]
 namespace SeleniumMyStoreWebAppFramework.Test;
 
 
@@ -59,6 +60,14 @@ public class BaseTest
     [TearDown]
     public void CloseTestCaseLogEntry()
     {
+    }
+
+
+    protected HomePage OpenHomePage()
+    {
+        var homePage = new HomePage(_driver);
+        homePage.GoToHomePage();
+        return homePage;
     }
 
 

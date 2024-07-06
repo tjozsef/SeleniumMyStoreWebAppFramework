@@ -31,7 +31,7 @@ public class CompareProductDataOnHomePageToQuickViewModal : BaseTest
     }
 
 
-    private void CompareProductDataOnHomPageAndQuickViewModal(IList<Product> productList, HomePage homePage)
+    private static void CompareProductDataOnHomPageAndQuickViewModal(IList<Product> productList, HomePage homePage)
     {
         foreach (var product in productList)
         {
@@ -54,16 +54,8 @@ public class CompareProductDataOnHomePageToQuickViewModal : BaseTest
                 "actual : {quickViewModalProduct.Quantity}");
                 Assert.That(quickViewModal.IsImageDisplayed(quickViewModalProduct.Image), Is.True, $"Image is missing for {product.Name} on QuickViewModal.");
             });
-            quickViewModal.CloseQuickViewModal();
+            quickViewModal.Close();
         }
     }
-
-    private HomePage OpenHomePage()
-    {
-        var homePage = new HomePage(_driver);
-        homePage.GoToHomePage();
-        return homePage;
-    }
-
 
 }

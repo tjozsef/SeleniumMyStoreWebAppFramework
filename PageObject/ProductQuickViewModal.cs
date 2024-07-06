@@ -8,19 +8,19 @@ public class ProductQuickViewModal(IWebDriver driver) : BasePageObject(driver)
 {
 
     #region Selector queries
-    private By _closeModalButtonQ = CssSelector("#index > div[role='dialog'] .close");
+    private By _closeModalButtonQ => CssSelector("#index > [tabindex] [aria-hidden]");
 
-    private By _addToCartButtonQ = CssSelector(".add-to-cart");
+    private By _addToCartButtonQ => CssSelector(".add-to-cart");
 
-    private By _quickViewModalQ = CssSelector("#index > [tabindex] .modal-content");
-
-    private IWebElement _quickViewModal => FindElement(_quickViewModalQ);
+    //Note ActiveElement() method is a workaround for the issue in which quick view modal elements can't be find 
+    //after opening and closing a successfully added modal.
+    private IWebElement _quickViewModal => ActiveElement();
     private IWebElement _closeModalButton => FindElement(_closeModalButtonQ);
     private IWebElement _addToCartButton => FindElement(_addToCartButtonQ);
 
     #endregion
 
-    public void CloseQuickViewModal() => _closeModalButton.Click();
+    public void Close() => _closeModalButton.Click();
 
     public ProductSuccessfullyAddedModal? AddProductToCart()
     {
@@ -31,9 +31,14 @@ public class ProductQuickViewModal(IWebDriver driver) : BasePageObject(driver)
         return successfullyAddedModal;
     }
 
+    public void ScrollToModal()
+    {
+        ScrollToWebElement(_quickViewModal);
+    }
+
     public Product GetProduct()
     {
-        var product = Product.FromIWebelement(_quickViewModal, ProductCardLocators.ForQuickViewModal());
+        var product = Product.FromIWebelement(this, _quickViewModal, ProductCardLocators.ForQuickViewModal());
         return product;
     }
 

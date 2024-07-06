@@ -6,11 +6,11 @@ namespace SeleniumMyStoreWebAppFramework.PageObject.Card
     {
         #region On Home Page
         private static string _productNameOnHome = ".js-product-miniature.product-miniature h3 > a";
-        private static string _regularPriceOnHome = ".regular-price";
+        private static string _regularPriceOnHome = ".js-product-miniature.product-miniature .regular-price";
         private static string _priceOnHome = ".price";
         private static string _imageOnHome = "picture";
         //Note quantity on home page is not visible.
-        private static string _quantityOnHomePage = "#quantity_wanted";
+        private static string _quantityOnHomePage = "null";
 
         #endregion
 
@@ -78,7 +78,6 @@ namespace SeleniumMyStoreWebAppFramework.PageObject.Card
 
         public static ProductCardLocators ForHomePage() => _cardLocatorsForHomePage;
         public static ProductCardLocators ForQuickViewModal() => _cardLocatorsForQuickViewModal;
-
 
         public static ProductCardLocators ForSuccessfullyAddedModal() => _cardLocatorsForSuccessfullyAddedModal;
 

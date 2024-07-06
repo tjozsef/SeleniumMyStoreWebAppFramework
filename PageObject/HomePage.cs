@@ -51,7 +51,7 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
             IList<Product> productList = [];
             foreach (var element in elementList)
             {
-                var product = Product.FromIWebelement(element, ProductCardLocators.ForHomePage());
+                var product = Product.FromIWebelement(this, element, ProductCardLocators.ForHomePage());
                 productList.Add(product);
             }
             return productList;
@@ -80,7 +80,7 @@ namespace SeleniumMyStoreWebAppFramework.PageObject
             ScrollToWebElement(productCard);
             if (successfullyAddedModal == null)
             {
-                quickViewModal.CloseQuickViewModal();
+                quickViewModal.Close();
                 return false;
             }
             successfullyAddedModal.ContinueShopping();

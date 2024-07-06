@@ -18,7 +18,7 @@ public abstract class BasePageObject(IWebDriver driver)
     protected static By XPath(string xpathToFind) => By.XPath(xpathToFind);
 
     protected IWebElement FindElement(By selector) => _driver.FindElement(selector);
-
+    protected IWebElement ActiveElement() => _driver.SwitchTo().ActiveElement();
     protected ReadOnlyCollection<IWebElement> FindElements(By selector) => _driver.FindElements(selector);
     protected void GoToUrl(string url)
     {
@@ -95,11 +95,23 @@ public abstract class BasePageObject(IWebDriver driver)
         wait.Until(ExpectedConditions.ElementToBeClickable(element));
     }
 
-    protected IWebElement WaitUntilElementIsVisible(By selector, int waitSeconds = 4)
+    protected IWebElement WaitUntilElementIsVisible(By selector, int waitSeconds = 5)
     {
         var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(waitSeconds));
         var element = wait.Until(ExpectedConditions.ElementIsVisible(selector));
         return element;
+    }
+
+    public IWebElement? FindSubElementOrNullQuickly(IWebElement mainElement, By subElementSelector)
+    {
+        try
+        {
+            return mainElement.FindElement(subElementSelector);
+        }
+        catch (NoSuchElementException)
+        {
+            return null;
+        }
     }
 
 }

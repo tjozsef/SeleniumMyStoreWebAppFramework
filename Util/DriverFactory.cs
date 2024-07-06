@@ -1,4 +1,5 @@
 
+using Microsoft.VisualBasic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
@@ -55,14 +56,14 @@ public static class DriverFactory
             throw new Exception($"Could not create webdriver for browsertype: {browserType.ToString()}");
         }
         driver.Manage().Window.Maximize();
-        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(DefaultConstans.ImplicitWaitSeconds);
         driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
         return driver;
     }
 
     private static BrowserType GetBrowserType()
     {
-        var browserName = TestContext.Parameters[Constans.BrowserKey]?.ToUpper() ?? ConfigurationManager.AppSettings[Constans.BrowserKey]?.ToUpper() ?? Constans.FallBackBrowser;
+        var browserName = TestContext.Parameters[DefaultConstans.BrowserKey]?.ToUpper() ?? ConfigurationManager.AppSettings[DefaultConstans.BrowserKey]?.ToUpper() ?? DefaultConstans.FallBackBrowser;
         var browserType = Enum.Parse<BrowserType>(browserName);
         return browserType;
     }
