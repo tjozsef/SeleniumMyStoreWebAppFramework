@@ -1,5 +1,4 @@
 using OpenQA.Selenium;
-using SeleniumMyStoreWebAppFramework.DataModel;
 using SeleniumMyStoreWebAppFramework.PageObject;
 
 namespace SeleniumMyStoreWebAppFramework.Test.ViewProduct;
@@ -31,8 +30,7 @@ public class CompareProductDataOnQuickViewModalToSuccessfullyAddedModal : BaseTe
         CompareProductDataQuickViewModalToSuccessfullyAddedModal(newProductsList, homePage);
     }
 
-
-    private void CompareProductDataQuickViewModalToSuccessfullyAddedModal(IList<IWebElement> productList, HomePage homePage)
+    private static void CompareProductDataQuickViewModalToSuccessfullyAddedModal(IList<IWebElement> productList, HomePage homePage)
     {
         foreach (var product in productList)
         {
@@ -41,7 +39,7 @@ public class CompareProductDataOnQuickViewModalToSuccessfullyAddedModal : BaseTe
             var successfullyAddedModal = quickViewModal.AddProductToCart();
             if (successfullyAddedModal == null)
             {
-                TestContext.Progress.WriteLine($"Product: {productOnQuickViewModal.Name} can not be added to cart, add to cart button disabled.");
+                TestContext.Progress.WriteLine($"Product: {productOnQuickViewModal.Name} can not be added to cart, add to cart button is disabled.");
                 quickViewModal.Close();
                 continue;
             }
@@ -49,20 +47,21 @@ public class CompareProductDataOnQuickViewModalToSuccessfullyAddedModal : BaseTe
             Assert.Multiple(() =>
             {
                 Assert.That(successfullyAddedModal.IsImageDisplayed(productOnSuccessFullyAddedModal.Image), Is.True,
-                        $"Image is not displayed on successfully added modal for {productOnSuccessFullyAddedModal.Name}");
+                $"Image is not displayed on successfully added modal for {productOnSuccessFullyAddedModal.Name}");
+
                 Assert.That(productOnSuccessFullyAddedModal.Name, Is.EqualTo(productOnQuickViewModal.Name),
-                $"Product name is different on  successfully added and quick view and modal."
-                + $" vs {productOnQuickViewModal.Name}");
+                $"Product name is different on  successfully added and quick view and modal: "
+                + $"{productOnQuickViewModal.Name} vs {productOnSuccessFullyAddedModal.Name}");
+
                 Assert.That(productOnSuccessFullyAddedModal.Price, Is.EqualTo(productOnQuickViewModal.Price),
-                $"Product price is different on  successfully added and quick view and modal."
-                + $" vs {productOnQuickViewModal.Price}");
+                $"Product price is different on  successfully added and quick view and modal: "
+               + $"{productOnQuickViewModal.Name} vs {productOnSuccessFullyAddedModal.Name}");
+
                 Assert.That(productOnSuccessFullyAddedModal.Quantity, Is.EqualTo(productOnQuickViewModal.Quantity),
-               $"Product quantity is different on  successfully added and quick view and modal."
-                + $" vs {productOnQuickViewModal.Quantity}");
+               $"Product quantity is different on  successfully added and quick view and modal: "
+               + $"{productOnQuickViewModal.Name} vs {productOnSuccessFullyAddedModal.Name}");
             });
             successfullyAddedModal.ContinueShopping();
         }
     }
-
-
 }

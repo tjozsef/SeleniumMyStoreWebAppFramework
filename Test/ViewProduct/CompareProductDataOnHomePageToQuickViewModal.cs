@@ -33,26 +33,36 @@ public class CompareProductDataOnHomePageToQuickViewModal : BaseTest
 
     private static void CompareProductDataOnHomPageAndQuickViewModal(IList<Product> productList, HomePage homePage)
     {
-        foreach (var product in productList)
+        foreach (var productOnHome in productList)
         {
             Assert.Multiple(() =>
             {
-                Assert.That(homePage.IsImageDisplayed(product.Image), Is.True,
-                 $"Image is missing for {product.Name} on homepage.");
-                Assert.That(product.Quantity, Is.EqualTo(null),
-                $"On home page quantity should not be visible for {product.Name}");
+                Assert.That(homePage.IsImageDisplayed(productOnHome.Image), Is.True,
+                 $"Image is missing for {productOnHome.Name} on homepage.");
+                Assert.That(productOnHome.Quantity, Is.EqualTo(null),
+                $"On home page quantity should not be visible for {productOnHome.Name}");
             });
 
-            var quickViewModal = homePage.OpenQuickViewModalForProduct(product);
+            var quickViewModal = homePage.OpenQuickViewModalForProduct(productOnHome);
             var quickViewModalProduct = quickViewModal.GetProduct();
             Assert.Multiple(() =>
             {
-                Assert.That(quickViewModalProduct.Name, Does.StartWith(product.Name.Replace(".", "")), "Product name does not match.");
-                Assert.That(quickViewModalProduct.Price, Is.EqualTo(product.Price), "Product price doues not match.");
-                Assert.That(quickViewModalProduct.RegularPrice, Is.EqualTo(product.RegularPrice), "Product regular price does not match.");
-                Assert.That(quickViewModalProduct.Quantity, Is.EqualTo(1), $"Expected default quantity on quick view modal is 1, " +
-                "actual : {quickViewModalProduct.Quantity}");
-                Assert.That(quickViewModal.IsImageDisplayed(quickViewModalProduct.Image), Is.True, $"Image is missing for {product.Name} on QuickViewModal.");
+                Assert.That(quickViewModalProduct.Name, Does.StartWith(productOnHome.Name.Replace(".", "")),
+                "Product name does not match on home page and quick view modal: "
+                 + $"{productOnHome.Name} vs {quickViewModalProduct.Name}");
+
+                Assert.That(quickViewModalProduct.Price, Is.EqualTo(productOnHome.Price),
+                $"Product price does not match on home page and quick view modal for {productOnHome.Name}: "
+                 + $"{productOnHome.Price} vs {quickViewModalProduct.Price}");
+
+                Assert.That(quickViewModalProduct.RegularPrice, Is.EqualTo(productOnHome.RegularPrice),
+                $"Product regular price does not match on home page and quick view modal for {productOnHome.Name}: "
+                 + $"{productOnHome.RegularPrice} vs {quickViewModalProduct.RegularPrice}");
+
+                Assert.That(quickViewModalProduct.Quantity, Is.EqualTo(1),
+                $"Expected default quantity on quick view modal is 1  for {productOnHome.Name}:, " +
+                $"actual : {quickViewModalProduct.Quantity}");
+                Assert.That(quickViewModal.IsImageDisplayed(quickViewModalProduct.Image), Is.True, $"Image is missing for {productOnHome.Name} on QuickViewModal.");
             });
             quickViewModal.Close();
         }
